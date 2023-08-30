@@ -9,16 +9,34 @@ import {
   makeItZero,
 } from "./features/counter/counterSlice";
 import { getAge, getName } from "./features/userInfo/userInfo";
+import { filterUserList } from "./features/userList/userListSlice";
 
 function App() {
   const count = useSelector((state: RootState) => state.counter.value);
   const { name, age } = useSelector((state: RootState) => state.userInfo);
+  const userList = useSelector((state: RootState) => state.userList);
   console.log(name, age);
 
   const dispatch = useDispatch();
 
   return (
     <div>
+      {JSON.stringify(userList)}
+      <div>
+        {userList.map((u) => (
+          <div key={u.id}>
+            <p>{u.name}</p>
+            <button
+              onClick={() => {
+                console.log("hey");
+                dispatch(filterUserList(u.id));
+              }}
+            >
+              {u.id}
+            </button>
+          </div>
+        ))}
+      </div>
       <div>
         <input
           type="text"
