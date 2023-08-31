@@ -9,7 +9,10 @@ import {
   makeItZero,
 } from "./features/counter/counterSlice";
 import { getAge, getName } from "./features/userInfo/userInfo";
-import { filterUserList } from "./features/userList/userListSlice";
+import {
+  filterUserList,
+  unfilteredUserList,
+} from "./features/userList/userListSlice";
 
 function App() {
   const count = useSelector((state: RootState) => state.counter.value);
@@ -18,7 +21,9 @@ function App() {
   console.log(name, age);
 
   const dispatch = useDispatch();
+  console.log({ userList });
 
+  // TODO: array is not updating : userList
   return (
     <div>
       {JSON.stringify(userList)}
@@ -36,6 +41,10 @@ function App() {
             </button>
           </div>
         ))}
+
+        <button onClick={() => dispatch(unfilteredUserList())}>
+          get all user List
+        </button>
       </div>
       <div>
         <input
