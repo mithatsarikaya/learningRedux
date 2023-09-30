@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import type { RootState } from "./store";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewPost } from "./features/posts/postsSlice";
+import { addNewPost, deleteAPost } from "./features/posts/postsSlice";
 
 function App() {
   // type TNewPost = { title: string; content: string };
@@ -23,18 +23,30 @@ function App() {
     }));
   }
 
-  const date = new Date();
-
   function addBlog(e: React.FormEvent<HTMLButtonElement>) {
     e.preventDefault();
-    dispatch(addNewPost({ ...newPost, id: date.getTime().toString() }));
+    dispatch(addNewPost(newPost));
     setNewPost(initialPost);
   }
+  function deleteBlog(idToDelete: string) {
+    dispatch(deleteAPost(idToDelete));
+  }
 
-  console.log(newPost);
+  console.log({ posts });
   return (
     <div>
-      <div>{JSON.stringify(posts)}</div>
+      <div>
+        {posts.map((p) => (
+          <article
+            key={p.id}
+            style={{ border: "solid 2px" }}
+            onClick={() => deleteBlog(p.id)}
+          >
+            <h1>{p.title}</h1>
+            <p>{p.content}</p>
+          </article>
+        ))}
+      </div>
       <input
         onChange={(e) => handleChange(e)}
         name="title"

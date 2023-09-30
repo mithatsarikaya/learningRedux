@@ -24,12 +24,21 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    addNewPost: (state, action: PayloadAction<TPostObject>) => {
-      state.push(action.payload);
+    addNewPost: {
+      reducer: (state, action: PayloadAction<TPostObject>) => {
+        state.push(action.payload);
+      },
+      prepare: (obj) => {
+        let id = new Date().getTime().toString();
+        return { payload: { ...obj, id } };
+      },
+    },
+    deleteAPost: (state, action) => {
+      return state.filter((s) => s.id != action.payload);
     },
   },
 });
 
-export const { addNewPost } = postsSlice.actions;
+export const { addNewPost, deleteAPost } = postsSlice.actions;
 
 export default postsSlice.reducer;
