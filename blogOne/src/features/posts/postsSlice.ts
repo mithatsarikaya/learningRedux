@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
 type TPostObject = {
   id: string;
@@ -38,6 +39,8 @@ const postsSlice = createSlice({
     },
   },
 });
+
+export const getAllPosts = (state: RootState) => state.posts;
 
 export const { addNewPost, deleteAPost } = postsSlice.actions;
 

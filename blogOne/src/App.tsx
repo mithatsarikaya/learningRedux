@@ -1,13 +1,16 @@
 // import { useState } from "react";
 import { useState } from "react";
 import "./App.css";
-import type { RootState } from "./store";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewPost, deleteAPost } from "./features/posts/postsSlice";
+import {
+  addNewPost,
+  deleteAPost,
+  getAllPosts,
+} from "./features/posts/postsSlice";
 
 function App() {
   // type TNewPost = { title: string; content: string };
-  let posts = useSelector((state: RootState) => state.posts);
+  let posts = useSelector(getAllPosts);
   const dispatch = useDispatch();
   let initialPost = {
     title: "",
