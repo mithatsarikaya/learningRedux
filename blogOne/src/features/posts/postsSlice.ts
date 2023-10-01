@@ -29,9 +29,9 @@ const postsSlice = createSlice({
       reducer: (state, action: PayloadAction<TPostObject>) => {
         state.push(action.payload);
       },
-      prepare: (obj) => {
+      prepare: (payloadObj) => {
         let id = new Date().getTime().toString();
-        return { payload: { ...obj, id } };
+        return { payload: { ...payloadObj, id } };
       },
     },
     deleteAPost: (state, action) => {
