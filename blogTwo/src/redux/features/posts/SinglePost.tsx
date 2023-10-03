@@ -1,3 +1,4 @@
+import AuthorName from "../users/AuthorName";
 import { TPost } from "./postsSlice";
 
 const SinglePost = ({ post }: { post: TPost }) => {
@@ -5,7 +6,8 @@ const SinglePost = ({ post }: { post: TPost }) => {
     <article>
       <h1>{post.title.substring(0, 20)}</h1>
       <p>{post.body.substring(0, 30)}...</p>
-      <h4>{post.userId}</h4>
+      <AuthorName userID={post.userId} />
+      {/* <h4>{post.userId}</h4> */}
       <button>Delete</button>
     </article>
   );

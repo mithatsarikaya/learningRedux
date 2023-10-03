@@ -14,11 +14,10 @@ export interface TPost {
 }
 
 // First, create the thunk
-export const fetchPosts = createAsyncThunk("users/fetchPosts", async () => {
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   const response = await fetch(addDirectoryToStaticUrl(postUrl));
 
   if (!response.ok) {
-    console.log(response);
     return Promise.reject(response.status);
   }
 
@@ -52,7 +51,6 @@ export const postsSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       // Add user to the state array
-      console.log("sa", action);
       state.entities = action.payload;
       state.status = "succeeded";
     });

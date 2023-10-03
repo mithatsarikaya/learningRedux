@@ -16,8 +16,9 @@ const AllPosts = () => {
   let postsError = useSelector(getPostError);
   let postStatus = useSelector(getPostStatus);
 
+  let sortedPosts = posts.slice().sort((a, b) => b.id - a.id);
+
   let content;
-  console.log(postStatus);
 
   useEffect(() => {
     if (postStatus == "idle") {
@@ -26,8 +27,9 @@ const AllPosts = () => {
   }, [postStatus]);
 
   if (postStatus == "succeeded") {
-    console.log(posts);
-    content = posts.map((post) => <SinglePost key={post.id} post={post} />);
+    content = sortedPosts.map((post) => (
+      <SinglePost key={post.id} post={post} />
+    ));
   } else if (postStatus == "loading") {
     content = <div>Loading...</div>;
   } else if (postStatus == "failed") {
