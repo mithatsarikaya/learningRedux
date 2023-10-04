@@ -39,7 +39,6 @@ export interface Company {
 
 // First, create the thunk
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  console.log("object");
   const response = await fetch(addDirectoryToStaticUrl(userUrl));
 
   if (!response.ok) {
