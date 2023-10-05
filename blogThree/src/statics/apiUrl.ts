@@ -9,3 +9,7 @@ export const addDirectoryAndStringToStaticUrl = (
 ): string => {
   return staticUrl.concat(directoryName).concat(`/${extraString}`);
 };
+
+export const uniqueStringByTime = () => {
+  return new Date().getTime();
+};

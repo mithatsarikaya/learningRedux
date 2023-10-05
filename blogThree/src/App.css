@@ -25,6 +25,10 @@ a{
   text-decoration: none;
 }
 
+.homeDiv{
+  margin-top: 1rem;
+}
+
 form{
   margin:2rem 0;
   display: grid;

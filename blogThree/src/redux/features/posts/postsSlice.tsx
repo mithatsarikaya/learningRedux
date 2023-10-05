@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   addDirectoryAndStringToStaticUrl,
   addDirectoryToStaticUrl,
+  uniqueStringByTime,
 } from "../../../statics/apiUrl";
 import { RootState } from "../../app/store";
 
@@ -56,6 +57,13 @@ export const deleteAPost = createAsyncThunk(
     const response = await fetch(
       addDirectoryAndStringToStaticUrl(postUrl, postIDToDelete)
     );
+    console.log("deleterespons", response);
+    //this error ignored intentionally
+    // if (!response.ok) {
+    //   return Promise.reject(response.status);
+    // }
+
+    return postIDToDelete;
   }
 );
 
@@ -94,7 +102,15 @@ export const postsSlice = createSlice({
     });
     builder.addCase(addPost.fulfilled, (state, action) => {
       state.status = "succeeded";
-      state.entities.push(action.payload);
+
+      //changing id to prevent repetitive of the 101. jsonplaceholder api always returns 101 as a id when we post a new blog.
+      state.entities.push({ ...action.payload, id: uniqueStringByTime() });
+    });
+    builder.addCase(deleteAPost.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.entities = state.entities.filter(
+        (blog) => blog.id != Number(action.payload)
+      );
     });
   },
 });

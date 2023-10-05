@@ -1,9 +1,8 @@
-import AddNewPost from "../redux/features/posts/AddNewPost";
 import AllPosts from "../redux/features/posts/AllPosts";
 
 const Home = () => {
   return (
-    <div>
+    <div className="homeDiv">
       <AllPosts />
     </div>
   );

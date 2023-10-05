@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { TPost, addPost } from "./postsSlice";
 import UserOptions from "../users/UserOptions";
+import { useNavigate } from "react-router-dom";
+import { uniqueStringByTime } from "../../../statics/apiUrl";
 
 const AddNewPost = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [blogInfo, setBlogInfo] = useState<TPost>({
     body: "",
-    id: new Date().getTime(),
+    id: uniqueStringByTime(),
     title: "",
     userId: 0,
   });
@@ -32,7 +35,7 @@ const AddNewPost = () => {
   function handleAddBlog(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     dispatch(addPost(blogInfo));
-
+    navigate("/");
     // dispatch(addPost())
   }
 
