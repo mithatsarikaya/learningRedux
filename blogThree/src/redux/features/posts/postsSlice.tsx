@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addDirectoryToStaticUrl } from "../../../statics/apiUrl";
+import {
+  addDirectoryAndStringToStaticUrl,
+  addDirectoryToStaticUrl,
+} from "../../../statics/apiUrl";
 import { RootState } from "../../app/store";
 
 let postUrl = "posts";
@@ -43,6 +46,16 @@ export const addPost = createAsyncThunk(
     const resJson = await response.json();
     console.log(resJson);
     return resJson;
+  }
+);
+
+export const deleteAPost = createAsyncThunk(
+  "posts/deletePost",
+  async (postIDToDelete: string) => {
+    console.log(addDirectoryAndStringToStaticUrl(postUrl, postIDToDelete));
+    const response = await fetch(
+      addDirectoryAndStringToStaticUrl(postUrl, postIDToDelete)
+    );
   }
 );
 
