@@ -118,6 +118,8 @@ export const postsSlice = createSlice({
 export const getAllPosts = (state: RootState) => state.posts.entities;
 export const getPostStatus = (state: RootState) => state.posts.status;
 export const getPostError = (state: RootState) => state.posts.error;
+export const getPostByID = (state: RootState, postID: string) =>
+  state.posts.entities.find((post) => post.id === Number(postID));
 
 export default postsSlice.reducer;
 
