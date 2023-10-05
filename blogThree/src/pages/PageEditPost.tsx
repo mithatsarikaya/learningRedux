@@ -7,13 +7,11 @@ import EditPost from "../redux/features/posts/EditPost";
 const PageEditPost = () => {
   const { postID } = useParams();
 
-  if (!postID) {
-    return <div>There is no such a id {postID}</div>;
-  }
-  let post = useSelector((state: RootState) => getPostByID(state, postID));
+  let post =
+    postID && useSelector((state: RootState) => getPostByID(state, postID));
   console.log(post);
 
-  if (post == undefined) return <div>There is no such a id {postID}</div>;
+  if (!post) return <div>There is no such a id {postID}</div>;
 
   return (
     <div>

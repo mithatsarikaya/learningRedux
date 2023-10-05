@@ -67,6 +67,23 @@ export const deleteAPost = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async (post: TPost) => {
+    const response = await fetch(
+      addDirectoryAndStringToStaticUrl(postUrl, post.id.toString()),
+      {
+        method: "PUT",
+        body: JSON.stringify(post),
+      }
+    );
+
+    console.log(response);
+
+    return post;
+  }
+);
+
 interface PostsState {
   entities: TPostsArray;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -111,6 +128,14 @@ export const postsSlice = createSlice({
       state.entities = state.entities.filter(
         (blog) => blog.id != Number(action.payload)
       );
+    });
+    builder.addCase(editPost.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      let editedPost = action.payload;
+      state.entities = state.entities.filter(
+        (post) => post.id !== editedPost.id
+      );
+      state.entities = [...state.entities, editedPost];
     });
   },
 });
