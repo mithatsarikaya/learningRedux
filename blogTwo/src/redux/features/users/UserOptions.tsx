@@ -6,7 +6,9 @@ const UserOptions = () => {
   return (
     <>
       {users.map((user) => (
-        <option value={user.id}>{user.name}</option>
+        <option key={user.id} value={user.id}>
+          {user.name}
+        </option>
       ))}
     </>
   );

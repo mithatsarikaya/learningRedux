@@ -7,7 +7,7 @@ const SinglePost = ({ post }: { post: TPost }) => {
       <h1>{post.title.substring(0, 20)}</h1>
       <p>{post.body.substring(0, 30)}...</p>
       <AuthorName userID={post.userId} />
-      {/* <h4>{post.userId}</h4> */}
+      <h4>{post.id}</h4>
       <button>Delete</button>
     </article>
   );

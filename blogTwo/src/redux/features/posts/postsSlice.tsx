@@ -25,6 +25,27 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   return resJson;
 });
 
+export const addPost = createAsyncThunk(
+  "posts/addPost",
+  async (blogData: TPost) => {
+    const response = await fetch(addDirectoryToStaticUrl(postUrl), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blogData),
+    });
+
+    if (!response.ok) {
+      return Promise.reject(response.status);
+    }
+
+    const resJson = await response.json();
+    console.log(resJson);
+    return resJson;
+  }
+);
+
 interface PostsState {
   entities: TPostsArray;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -57,6 +78,10 @@ export const postsSlice = createSlice({
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.error.message as string;
+    });
+    builder.addCase(addPost.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.entities.push(action.payload);
     });
   },
 });
